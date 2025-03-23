@@ -1,5 +1,7 @@
 
 collections:
+- name: ansible.posix
+
 - name: k3s_io.ansible_k3s
   type: git
   source: git+https://github.com/k3s-io/k3s-ansible.git

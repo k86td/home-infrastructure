@@ -1,0 +1,18 @@
+
+all:
+  children:
+    alpine:
+      children:
+        k3s_cluster:
+          children:
+            server:
+              hosts:
+                brainberry-01:
+                  ansible_host: 192.168.0.100
+                  ansible_become_pass: 'JrWibeV2oyagNfaDyN4e'
+            agent:
+              hosts:
+                synapse-01:
+                  ansible_host: 192.168.0.101
+                  ansible_become_pass: 'bJm8u6d9JLFKLdrMpQY7'
+                  

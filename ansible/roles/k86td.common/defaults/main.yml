@@ -1,0 +1,9 @@
+#SPDX-License-Identifier: MIT-0
+---
+# defaults file for k86td.common
+
+common_users:
+  tlepine:
+    state: present
+    ssh_pub_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGvcD9pkssW0amwRVS1/5J/4ydVl2CjfS0HTDKwFSWET tristanlepine14@gmail.com
+    sudoer: yes

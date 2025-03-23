@@ -1,0 +1,8 @@
+
+- name: Configure nodes
+  hosts: alpine
+  become: yes
+  become_method: doas
+  roles:
+  - k86td.common
+

@@ -1,0 +1,17 @@
+
+- name: ensure users exist with the right config
+  include_tasks: user.yaml  
+  loop: "{{ common_users | dict2items(key_name='user', value_name='config') }}"
+
+- name: ensure doas configuration is gud
+  copy:
+    src: ../../files/doas.conf
+    dest: /etc/doas.conf
+    mode: '0644'
+    owner: root
+    group: root
+
+- name: update apk
+  apk:
+    update_cache: yes
+    upgrade: yes

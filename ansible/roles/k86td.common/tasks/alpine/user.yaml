@@ -1,0 +1,16 @@
+
+- name: ensure user exist
+  user:
+    name: "{{ item.user }}"
+    password: '*'
+    groups: "{{ 'wheel' | split(',')  if item.config.sudoer else omit }}"
+    state: "{{ item.config.state }}"
+
+- name: ensure user have authorized_keys
+  ansible.posix.authorized_key:
+    user: "{{ item.user }}"
+    key: "{{ item.config.ssh_pub_key }}"
+
+# configure ssh (no root plugin)
+
+# update & upgrade packages

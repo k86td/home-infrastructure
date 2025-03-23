@@ -1,0 +1,16 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for k86td.common
+
+- block:
+  - name: run common for distribution <{{ ansible_distribution }}>
+    include_tasks: alpine/main.yaml
+    when: ansible_distribution == 'Alpine'
+
+- name: ensure sshd certain configuration settings
+  block:
+  - lineinfile:
+      line: "PermitRootLogin no"
+      path: /etc/ssh/sshd_config
+      regexp: "^PermitRootLogin"
+    
