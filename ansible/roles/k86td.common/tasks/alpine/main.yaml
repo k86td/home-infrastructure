@@ -11,7 +11,7 @@
     owner: root
     group: root
 
-- name: update apk
+- name: update and upgrade apk
   apk:
     update_cache: yes
     upgrade: yes
