@@ -1,4 +1,8 @@
 
+- name: Extract major and minor version
+  set_fact:
+    version_short: "{{ ansible_distribution_version.split('.')[:2] | join('.') }}"
+
 - name: ensure users exist with the right config
   include_tasks: user.yaml  
   loop: "{{ common_users | dict2items(key_name='user', value_name='config') }}"
@@ -11,7 +15,16 @@
     owner: root
     group: root
 
+- name: ensure community repository is enabled
+  lineinfile:
+    line: "http://dl-cdn.alpinelinux.org/alpine/v{{ version_short }}/community"
+    path: /etc/apk/repositories
+
 - name: update and upgrade apk
   apk:
     update_cache: yes
     upgrade: yes
+
+- name: apk add packages
+  apk:
+    name: "{{ alpinePackages }}"

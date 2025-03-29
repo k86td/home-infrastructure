@@ -13,4 +13,3 @@
       line: "PermitRootLogin no"
       path: /etc/ssh/sshd_config
       regexp: "^PermitRootLogin"
-    
