@@ -9,17 +9,15 @@ all:
               hosts:
                 synapse-01:
                   ansible_host: 192.168.0.101
-                  ansible_become_pass: 'bJm8u6d9JLFKLdrMpQY7'
+                  ansible_become_pass: "{{ becomePwd['synapse-01'] }}"
               vars:
                 install_k3s_exec: "server"
             agent:
               hosts:
                 brainberry-01:
                   ansible_host: 192.168.0.100
-                  ansible_become_pass: 'JrWibeV2oyagNfaDyN4e'
+                  ansible_become_pass: "{{ becomePwd['brainberry-01'] }}"
               vars:
                 install_k3s_exec: "agent --server https://192.168.0.101:6443"
-          vars:
-            k3s_token: "O9IaUsyd0ADlashd89"
       vars:
         ansible_become_method: doas
