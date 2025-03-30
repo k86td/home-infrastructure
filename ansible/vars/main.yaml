@@ -1,2 +1,3 @@
 
-
+# by changing this variable you can upgrade the cluster version
+k3s_version: "v1.32.3+k3s1"

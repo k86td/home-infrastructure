@@ -18,6 +18,7 @@
   environment:
     INSTALL_K3S_EXEC: "{{ install_k3s_exec }}"
     K3S_TOKEN: "{{ k3s_token }}"
+    INSTALL_K3S_VERSION: "{{ k3s_version }}"
 
 - block:
   - name: change server address in kubeconfig
