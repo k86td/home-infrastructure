@@ -1,0 +1,53 @@
+
+
+- name: enable overlay and netfilter modules
+  copy:
+    content: |
+      overlay
+      br_netfilter
+    dest: /etc/modules-load.d/containerd.conf
+
+- name: download install K3S install script
+  get_url:
+    url: https://get.k3s.io/
+    dest: /tmp/k3s_install.sh
+    mode: 0775
+
+- name: execute K3S install script
+  command: sh /tmp/k3s_install.sh
+  environment:
+    INSTALL_K3S_EXEC: "{{ install_k3s_exec }}"
+    K3S_TOKEN: "{{ k3s_token }}"
+
+- block:
+  - name: change server address in kubeconfig
+    replace:
+      path: /etc/rancher/k3s/k3s.yaml
+      regexp: "127.0.0.1"
+      replace: "{{ hostvars[groups.server[0]].ansible_host }}"
+    run_once: true
+    delegate_to: "{{ groups['server'][0] }}"
+
+  - name: copy kubeconfig file
+    fetch:
+      src: "/etc/rancher/k3s/k3s.yaml"
+      dest: "artifacts/kubeconfig.yaml"
+      flat: true
+    retries: 5
+    delay: 30
+    run_once: true
+    delegate_to: "{{ groups.server[0] }}"
+
+  - name: copy kubeconfig file to all nodes
+    copy:
+      src: artifacts/kubeconfig.yaml
+      dest: /etc/rancher/k3s/k3s.yaml
+      mode: 0600
+      owner: root
+      group: root
+
+- name: "wait until the cluster is ready"
+  shell: "kubectl get nodes"
+  register: "kubectl_get_nodes"
+  until: "kubectl_get_nodes is not failed"
+  delay: 60

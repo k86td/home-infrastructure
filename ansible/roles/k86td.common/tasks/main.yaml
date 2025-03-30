@@ -13,3 +13,11 @@
       line: "PermitRootLogin no"
       path: /etc/ssh/sshd_config
       regexp: "^PermitRootLogin"
+
+- name: template motd
+  template:
+    src: templates/motd.jinja2
+    dest: /etc/motd
+    mode: 0644
+    owner: root
+    group: root

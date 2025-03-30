@@ -9,3 +9,13 @@ common_users:
     sudoer: yes
 
 alpinePackages: []
+
+motd_logo: |
+  88         ad88888ba     ad8888ba,                   88  
+  88        d8"     "8b   8P'    "Y8    ,d             88  
+  88        Y8a     a8P  d8             88             88  
+  88   ,d8   "Y8aaa8P"   88,dd888bb,  MM88MMM  ,adPPYb,88  
+  88 ,a8"    ,d8"""8b,   88P'    `8b    88    a8"    `Y88  
+  8888[     d8"     "8b  88       d8    88    8b       88  
+  88`"Yba,  Y8a     a8P  88a     a8P    88,   "8a,   ,d88  
+  88   `Y8a  "Y88888P"    "Y88888P"     "Y888  `"8bbdP"Y8  

@@ -3,7 +3,7 @@ all:
   children:
     alpine:
       children:
-        k3s_cluster:
+        home_k3s:
           children:
             server:
               hosts:
@@ -12,6 +12,7 @@ all:
                   ansible_become_pass: "{{ becomePwd['synapse-01'] }}"
               vars:
                 install_k3s_exec: "server"
+                uninstall_k3s_exec: "k3s-uninstall.sh"
             agent:
               hosts:
                 brainberry-01:
@@ -19,5 +20,6 @@ all:
                   ansible_become_pass: "{{ becomePwd['brainberry-01'] }}"
               vars:
                 install_k3s_exec: "agent --server https://192.168.0.101:6443"
+                uninstall_k3s_exec: "k3s-agent-uninstall.sh"
       vars:
         ansible_become_method: doas

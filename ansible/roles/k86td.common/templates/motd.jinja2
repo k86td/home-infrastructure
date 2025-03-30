@@ -1,0 +1,7 @@
+managed by ;
+
+{{ motd_logo }}
+
+{% if inventory_hostname in groups.home_k3s %}
+This machine is part of the home K3S cluster.
+{% endif %}

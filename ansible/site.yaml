@@ -1,31 +1,12 @@
 
 - name: configure nodes
-  hosts: alpine
+  hosts: home_k3s
   become: yes
   vars_files:
   - vars/main.yaml
   - vars/vault.yaml
   roles:
-  - k86td.common
-  tasks:
-  - block:
-    - name: enable overlay and netfilter modules
-      copy:
-        content: |
-          overlay
-          br_netfilter
-        dest: /etc/modules-load.d/containerd.conf
-
-    - name: download install K3S install script
-      get_url:
-        url: https://get.k3s.io/
-        dest: /tmp/k3s_install.sh
-        mode: 0775
-
-    - name: execute K3S install script
-      command: sh /tmp/k3s_install.sh
-      environment:
-        INSTALL_K3S_EXEC: "{{ install_k3s_exec }}"
-        K3S_TOKEN: "{{ k3s_token }}"
+  - name: k86td.common
+  - name: k86td.k3s
     tags:
     - k3s
