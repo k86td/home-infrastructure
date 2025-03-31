@@ -4,5 +4,5 @@
 
 - block:
   - name: run common for distribution <Alpine>
-    include_tasks: alpine/main.yaml
+    include_tasks: install/alpine/main.yaml
     when: ansible_distribution == 'Alpine'
