@@ -11,17 +11,21 @@
   - name: k86td.k3s
     tags: k3s
   tasks:
-  - delegate_to: "{{ groups.server[0] }}"
-    run_once: true
+  - run_once: true
+    delegate_to: "127.0.0.1"
     block:
-    - name: "install ArgoCD manifest in /tmp"
-      get_url:
-        url: "https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml"
-        dest: "/tmp/argocd-stable.yaml"
-
     - name: "create ArgoCD namespace"
-      command: "kubectl create namespace argocd"
+      kubernetes.core.k8s:
+        kubeconfig: artifacts/kubeconfig.yaml
+        apply: true
+        api_version: "v1"
+        kind: "Namespace"
+        name: "argocd"
 
-    - name: "apply ArgoCD manifest"
-      command: "kubectl apply -n argocd -f /tmp/argocd-stable.yaml"
+    - name: "install ArgoCD manifest"
+      kubernetes.core.k8s:
+        kubeconfig: artifacts/kubeconfig.yaml
+        apply: true
+        namespace: argocd
+        src: "https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml"
 

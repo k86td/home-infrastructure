@@ -1,7 +1,4 @@
 
 collections:
 - name: ansible.posix
-
-- name: k3s.orchestration
-  type: git
-  source: git+https://github.com/k3s-io/k3s-ansible.git
+- name: kubernetes.core
