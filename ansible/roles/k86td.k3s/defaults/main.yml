@@ -1,2 +1,11 @@
 ---
 # defaults file for k86td.k3s
+
+k3s_version: "v1.32.3+k3s1"
+
+# can get stable version from https://raw.githubusercontent.com/cilium/cilium-cli/main/stable.txt
+k3s_cli_cilium_version: "v0.18.2"
+k3s_cilium_version: "1.17.2"
+
+k3s_use_cilium: false
+install_k3s_exec_cilium_flags: "--flannel-backend=none --disable-network-policy"

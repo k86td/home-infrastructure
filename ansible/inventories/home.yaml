@@ -19,7 +19,7 @@ all:
                   ansible_host: 192.168.0.100
                   ansible_become_pass: "{{ becomePwd['brainberry-01'] }}"
               vars:
-                install_k3s_exec: "agent --server https://192.168.0.101:6443"
+                install_k3s_exec: "agent --server https://{{ hostvars[groups.server[0]].ansible_host }}:6443"
                 uninstall_k3s_exec: "k3s-agent-uninstall.sh"
       vars:
         ansible_become_method: doas

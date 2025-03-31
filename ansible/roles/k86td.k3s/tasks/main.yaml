@@ -6,3 +6,10 @@
   - name: run common for distribution <Alpine>
     include_tasks: install/alpine/main.yaml
     when: ansible_distribution == 'Alpine'
+
+- block:
+  - name: install Cilium
+    include_tasks: install/cilium.yaml
+    when: k3s_use_cilium
+  tags:
+  - cilium

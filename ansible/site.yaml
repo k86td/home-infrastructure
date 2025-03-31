@@ -7,9 +7,9 @@
   - vars/vault.yaml
   roles:
   - name: k86td.common
+    tags: common
   - name: k86td.k3s
-    tags:
-    - k3s
+    tags: k3s
   tasks:
   - delegate_to: "{{ groups.server[0] }}"
     run_once: true

@@ -8,7 +8,8 @@ common_users:
     ssh_pub_key: "https://github.com/k86td.keys"
     sudoer: yes
 
-alpinePackages: []
+alpinePackages:
+- tar
 
 motd_logo: |
   88         ad88888ba     ad8888ba,                   88  

@@ -7,6 +7,20 @@
       br_netfilter
     dest: /etc/modules-load.d/containerd.conf
 
+- name: "make mount points shared to avoid some issues"
+  block:
+  - command: "mount --make-rshared /"
+  - command: "rc-update add local default"
+  - copy:
+      content: |
+        #!/bin/bash
+
+        mount --make-rshared /
+      dest: /etc/local.d/shared-mount.start
+      mode: '0755'
+      owner: root
+      group: root
+
 - name: download install K3S install script
   get_url:
     url: https://get.k3s.io/
@@ -16,7 +30,7 @@
 - name: execute K3S install script
   command: sh /tmp/k3s_install.sh
   environment:
-    INSTALL_K3S_EXEC: "{{ install_k3s_exec }}"
+    INSTALL_K3S_EXEC: "{{ install_k3s_exec }} {{ additional_install_k3s_exec_flags | default('') }}"
     K3S_TOKEN: "{{ k3s_token }}"
     INSTALL_K3S_VERSION: "{{ k3s_version }}"
 
