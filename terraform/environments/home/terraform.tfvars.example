@@ -1,0 +1,40 @@
+# Example terraform.tfvars file
+# Copy this to terraform.tfvars and fill in your values
+
+# SSH Configuration
+ssh_private_key_path = "~/.ssh/id_rsa"
+
+# K3S Server
+server_host = {
+  name    = "synapse-01"
+  address = "192.168.0.101"
+  user    = "k86td"
+}
+
+# K3S Agents
+agent_hosts = {
+  "brainberry-01" = {
+    address = "192.168.0.100"
+    user    = "k86td"
+  }
+}
+
+# K3S Configuration
+k3s_version     = "v1.32.3+k3s1"
+k3s_token       = "your-secret-token-here"  # CHANGE THIS!
+k3s_use_cilium  = false  # Set to true if you have enough memory
+
+# Common Users (fetched from GitHub)
+common_users = [
+  {
+    name     = "k86td"
+    ssh_keys = []  # Will be fetched from GitHub in implementation
+    groups   = ["wheel"]
+  }
+]
+
+# Alpine Packages
+alpine_packages = ["tar", "curl", "bash"]
+
+# ArgoCD
+install_argocd = true

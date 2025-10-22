@@ -15,12 +15,18 @@
           py-pkgs.ansible-core
           py-pkgs.kubernetes
         ]))
+        terraform
+        kubectl
       ];
 
       LC_ALL = "C.UTF-8";
-    
+
       shellHook = ''
         export KUBECONFIG="$(git rev-parse --show-toplevel)/ansible/artifacts/kubeconfig.yaml"
+        echo "Development environment loaded!"
+        echo "  - Ansible: $(ansible --version | head -n1)"
+        echo "  - Terraform: $(terraform version -json | jq -r '.terraform_version')"
+        echo "  - kubectl: $(kubectl version --client -o json | jq -r '.clientVersion.gitVersion')"
       '';
     };
   };
